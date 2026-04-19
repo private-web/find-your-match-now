@@ -3,95 +3,180 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wait... This Actually Works?</title>
+<title>Discover People Nearby</title>
+
 <style>
 body {
-  font-family: Arial, sans-serif;
-  background: #111;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  color: #fff;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #fff;
 }
+
 .container {
-  max-width: 500px;
-  background: #1c1c1c;
-  padding: 20px;
-  margin-top: 30px;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    max-width: 420px;
+    margin: auto;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
-h1 {
-  font-size: 24px;
-  line-height: 1.3;
+
+.header {
+    padding: 15px;
+    text-align: center;
+    background: #1e293b;
+    font-weight: bold;
 }
-p {
-  font-size: 16px;
-  color: #ddd;
+
+.sub {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 5px;
 }
-.highlight {
-  color: #ff4d6d;
-  font-weight: bold;
+
+.progress {
+    height: 3px;
+    background: #22c55e;
+    width: 0%;
+    transition: width 2s;
 }
+
 .chat {
-  background: #2a2a2a;
-  padding: 12px;
-  border-radius: 10px;
-  margin: 15px 0;
-  font-size: 15px;
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
 }
-.button {
-  display: block;
-  width: 100%;
-  padding: 16px;
-  text-align: center;
-  background: linear-gradient(45deg, #ff4d6d, #ff1e4d);
-  color: #fff;
-  text-decoration: none;
-  border-radius: 10px;
-  font-size: 18px;
-  margin-top: 20px;
-  font-weight: bold;
+
+.msg {
+    margin: 10px 0;
+    padding: 10px 14px;
+    border-radius: 12px;
+    max-width: 75%;
 }
-.button:hover {
-  opacity: 0.9;
+
+.bot { background: #334155; }
+.user { background: #22c55e; margin-left:auto; }
+
+.input-area {
+    padding: 10px;
+    background: #1e293b;
+    display: flex;
 }
-.small {
-  font-size: 12px;
-  color: #888;
-  margin-top: 12px;
-  text-align: center;
+
+input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+}
+
+button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    background: #22c55e;
+    color: #fff;
+}
+
+.cta-box {
+    display: none;
+    padding: 20px;
+    text-align: center;
+    background: #111827;
+}
+
+.cta-box button {
+    width: 100%;
+    margin-top: 10px;
+    background: #3b82f6;
+}
+
+.footer-note {
+    font-size: 11px;
+    opacity: 0.6;
+    margin-top: 10px;
 }
 </style>
 </head>
+
 <body>
 
 <div class="container">
-  <h1>i tried this at 2am… <span class="highlight">didn’t expect this to happen</span></h1>
 
-  <p>not gonna lie, i was just bored and scrolling like everyone else.</p>
-
-  <p>found this random place where people just... start talking.</p>
-
-  <p><span class="highlight">thought it was fake.</span> i was wrong.</p>
-
-  <div class="chat">
-    <p><b>her:</b> hey… you seem different</p>
-    <p><b>me:</b> lol didn’t expect a real convo here</p>
-    <p><b>her:</b> same… wanna keep talking?</p>
-  </div>
-
-  <p>yeah… i stayed way longer than i planned.</p>
-
-  <p>if you’re bored, curious, or just want something different…</p>
-
-  <p class="highlight">this might surprise you too.</p>
-
-  <a href="https://facesmsmart.com/s?a=67814&sm=5955&co=97474&mt=26&s1=JEMBUET" class="button">Continue →</a>
-
-  <p class="small">people are joining fast right now. availability may vary.</p>
+<div class="header">
+    Discover People Nearby
+    <div class="sub">Explore profiles & start conversations</div>
 </div>
+
+<div class="progress" id="progress"></div>
+
+<div class="chat" id="chat"></div>
+
+<div class="input-area">
+    <input id="msgInput" placeholder="Say hi...">
+    <button onclick="sendMsg()">Send</button>
+</div>
+
+<div class="cta-box" id="cta">
+    <h3>Start chatting</h3>
+    <p>Create a free account to continue.</p>
+    <button onclick="goOffer()">Continue</button>
+    <div class="footer-note">
+        *This is a demo interaction preview
+    </div>
+</div>
+
+</div>
+
+<script>
+let chat = document.getElementById("chat");
+
+function addMsg(text, type="bot"){
+    let div = document.createElement("div");
+    div.className = "msg " + type;
+    div.innerText = text;
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+// progress animation
+setTimeout(()=>{
+    document.getElementById("progress").style.width="100%";
+},500);
+
+// neutral, non-misleading flow
+setTimeout(()=>addMsg("Welcome ðŸ‘‹"),1000);
+setTimeout(()=>addMsg("You can explore profiles and connect with people nearby."),2500);
+setTimeout(()=>addMsg("Try sending a message to get started ðŸ™‚"),4000);
+
+function sendMsg(){
+    let input = document.getElementById("msgInput");
+    if(input.value==="") return;
+
+    addMsg(input.value,"user");
+    input.value="";
+
+    setTimeout(()=>{
+        addMsg("Nice! You can continue after creating a free account.");
+    },1000);
+
+    setTimeout(()=>{
+        document.getElementById("cta").style.display="block";
+    },2000);
+}
+    setTimeout(()=>{
+    addMsg("You have 2 new matches waiting ðŸ‘€");
+},1500);
+
+setTimeout(()=>{
+    document.getElementById("cta").style.display="block";
+},3000);
+
+function goOffer(){
+    window.location.href="https://city.ascendory.web.id/2026/04/09/sravia-hawaii-resorts-with-lava-landscapes-and-island-comfort/";
+}
+</script>
 
 </body>
 </html>
