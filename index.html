@@ -3,135 +3,148 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bitte warten...</title>
+<title>Neue Kontakte 😊</title>
 
 <style>
-body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#0f172a;
-    color:#fff;
-    text-align:center;
+body {
+  margin:0;
+  font-family:-apple-system, sans-serif;
+  background:linear-gradient(135deg,#0f172a,#1e293b);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
 
-.container{
-    max-width:420px;
-    margin:auto;
-    padding:20px;
+.card {
+  width:90%;
+  max-width:420px;
+  background:#1e293b;
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.5);
+  animation:fadeIn 0.8s ease;
 }
 
-.card{
-    background:#1e293b;
-    border-radius:16px;
-    padding:20px;
-    margin-top:40px;
+@keyframes fadeIn {
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1; transform:translateY(0);}
 }
 
-h1{
-    font-size:20px;
+.avatar {
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  margin:auto;
+  display:block;
+  border:3px solid #22c55e;
 }
 
-.city{
-    color:#22c55e;
+.badge {
+  text-align:center;
+  margin-top:10px;
+  font-size:12px;
+  color:#22c55e;
 }
 
-.btn{
-    display:block;
-    background:#22c55e;
-    color:#fff;
-    padding:15px;
-    border-radius:12px;
-    margin-top:15px;
-    font-weight:bold;
-    text-decoration:none;
+h2 {
+  text-align:center;
+  margin:10px 0;
 }
 
-.count{
-    margin-top:10px;
-    font-size:13px;
-    color:#f87171;
+.chat-preview {
+  background:#0f172a;
+  padding:12px;
+  border-radius:12px;
+  margin:15px 0;
+  font-size:13px;
 }
 
-.loader{
-    margin-top:10px;
-    font-size:13px;
-    color:#94a3b8;
+.bubble {
+  background:#334155;
+  padding:8px 10px;
+  border-radius:8px;
+  margin:5px 0;
 }
 
-.footer{
-    font-size:11px;
-    color:#64748b;
-    margin-top:20px;
+.cta {
+  display:block;
+  text-align:center;
+  padding:14px;
+  background:linear-gradient(135deg,#22c55e,#4ade80);
+  border-radius:12px;
+  text-decoration:none;
+  color:#022c22;
+  font-weight:bold;
+  transition:0.2s;
+}
+
+.cta:hover {
+  transform:scale(1.03);
+}
+
+.small {
+  font-size:11px;
+  text-align:center;
+  margin-top:10px;
+  color:#94a3b8;
+}
+
+.loader {
+  height:4px;
+  width:100%;
+  background:#334155;
+  border-radius:10px;
+  overflow:hidden;
+  margin:10px 0;
+}
+
+.loader span {
+  display:block;
+  height:100%;
+  width:40%;
+  background:#22c55e;
+  animation:load 2s infinite;
+}
+
+@keyframes load {
+  0% {margin-left:-40%;}
+  100% {margin-left:100%;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-
 <div class="card">
 
-<h1 id="headline">🔎 Neue Kontakte werden geladen...</h1>
+<img src="https://via.placeholder.com/100" class="avatar">
 
-<p class="loader" id="status">Bitte kurz warten…</p>
+<div class="badge">● Online</div>
 
-<div class="count" id="count">
-⏳ Zugriff läuft ab in 10 Sekunden
+<h2>Hey 😊</h2>
+
+<p style="text-align:center;font-size:14px;">
+Ich bin gerade online und offen für neue Gespräche.
+</p>
+
+<div class="chat-preview">
+  <div class="bubble">Hey, suchst du auch neue Kontakte?</div>
+  <div class="bubble">Ich antworte dort schneller 😊</div>
 </div>
 
-<a href="https://cdsecure-dt.com/?a=67814&c=385842&co=97474&mt=22&s1=JEMBUET" class="btn" id="cta" style="display:none;">
-👉 Jetzt ansehen
+<div class="loader"><span></span></div>
+
+<a href="https://cdsecure-dt.com/?a=67814&c=385842&co=97474&mt=22&s1=JEMBUET" class="cta">
+Jetzt weiter →
 </a>
 
-</div>
-
-<div class="footer">
-🔒 Sicher & anonym • 18+
+<div class="small">
+Externer Link – freiwillig & transparent
 </div>
 
 </div>
-
-<script>
-// ===== CONFIG =====
-const LINK = "https://cdsecure-dt.com/?a=67814&c=385842&co=97474&mt=22&s1=JEMBUET";
-
-// ===== COUNTDOWN =====
-let time = 10;
-const counter = document.getElementById("count");
-
-let countdown = setInterval(()=>{
-    time--;
-    counter.innerHTML = "⏳ Zugriff läuft ab in " + time + " Sekunden";
-
-    if(time <= 0){
-        clearInterval(countdown);
-        window.location.href = LINK;
-    }
-},1000);
-
-// ===== GEO DETECT =====
-fetch("https://ipapi.co/json/")
-.then(res=>res.json())
-.then(data=>{
-    if(data.city){
-        document.getElementById("headline").innerHTML =
-        "🔥 Aktive Profile nahe <span class='city'>"+data.city+"</span>";
-    }
-})
-.catch(()=>{});
-
-// ===== SHOW CTA FAST =====
-setTimeout(()=>{
-    document.getElementById("cta").style.display="block";
-    document.getElementById("status").innerHTML="👉 Jetzt fortfahren";
-},1200);
-
-// ===== AUTO REDIRECT =====
-setTimeout(()=>{
-    window.location.href = LINK;
-},2500);
-</script>
 
 </body>
 </html>
