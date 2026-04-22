@@ -1,84 +1,178 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privater Chat Zugang</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Discover New Connections</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
 body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: #0f172a;
-  color: #e5e7eb;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+    color: #fff;
+    text-align: center;
+    overflow-x: hidden;
 }
+
+/* Fade animation */
+.fade {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 1s forwards;
+}
+.fade.delay1 { animation-delay: 0.3s; }
+.fade.delay2 { animation-delay: 0.6s; }
+.fade.delay3 { animation-delay: 0.9s; }
+
+@keyframes fadeIn {
+    to { opacity:1; transform: translateY(0); }
+}
+
 .container {
-  max-width: 420px;
-  margin: auto;
-  padding: 24px;
-  text-align: center;
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
 }
-.logo {
-  font-size: 22px;
-  font-weight: 600;
-  margin-top: 20px;
+
+/* Badge */
+.badge {
+    background: linear-gradient(90deg,#ff4757,#ff6b81);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    display: inline-block;
+    margin-top: 20px;
 }
+
+/* Headline */
+h1 {
+    font-size: 26px;
+    margin-top: 15px;
+}
+
+.sub {
+    color: #aaa;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Card */
 .card {
-  background: #111827;
-  padding: 22px;
-  border-radius: 16px;
-  margin-top: 24px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 15px;
+    margin: 25px 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
-.text {
-  font-size: 14px;
-  color: #d1d5db;
-  margin-bottom: 18px;
-  line-height: 1.6;
+
+.blur-img {
+    width: 100%;
+    border-radius: 15px;
+    filter: blur(10px);
 }
+
+/* Counter */
+.counter {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #ff6b81;
+}
+
+/* Button */
 .button {
-  display: block;
-  width: 100%;
-  padding: 14px;
-  border-radius: 12px;
-  background: #2563eb;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
+    display: block;
+    margin: 20px auto;
+    padding: 15px;
+    width: 90%;
+    max-width: 320px;
+    background: linear-gradient(90deg,#ff4757,#ff6b81);
+    border-radius: 40px;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
 }
-.note {
-  font-size: 11px;
-  color: #9ca3af;
-  margin-top: 10px;
+
+.button:hover {
+    transform: scale(1.05);
 }
+
+/* Footer */
 .footer {
-  margin-top: 30px;
-  font-size: 11px;
-  color: #6b7280;
+    font-size: 11px;
+    color: #777;
+    margin-top: 25px;
 }
 </style>
 </head>
+
 <body>
 
 <div class="container">
 
-<div class="logo">Privater Zugang</div>
+<div class="badge fade">Trending Now</div>
 
-<div class="card">
-  <div class="text">
-    Trete einer Plattform bei, auf der du neue Kontakte knüpfen kannst. 
-    Die Registrierung ist kostenlos und dauert nur wenige Sekunden.
-  </div>
+<h1 class="fade delay1" id="headline">Discover New Connections</h1>
 
-  <a href="https://ssur.cc/Wc7iJwxs" class="button">Zur Plattform</a>
+<p class="sub fade delay2" id="subtext">
+People are exploring new connections right now.
+</p>
 
-  <div class="note">
-    Hinweis: Du wirst zu einem externen Partner weitergeleitet. Es gelten dessen Bedingungen.
-  </div>
+<div class="card fade delay2">
+<img src="https://i.ibb.co.com/ZRtp1mMq/image.jpg" class="blur-img">
+<p style="margin-top:10px;">Profiles available nearby</p>
+<div class="counter" id="counter">Loading activity...</div>
 </div>
 
-<div class="footer">© 2026 • Transparenter Zugang</div>
+<a href="https://ssur.cc/NDqDeCCA" class="button fade delay3">
+Continue
+</a>
+
+<p class="footer fade delay3">
+You may be redirected to a partner site. <br>
+Must be 18+ to continue.
+</p>
 
 </div>
+
+<script>
+// Dynamic greeting based on time
+const hour = new Date().getHours();
+const headline = document.getElementById("headline");
+const subtext = document.getElementById("subtext");
+
+if (hour < 12) {
+    headline.innerText = "Good morning ☀️";
+    subtext.innerText = "Start your day by discovering new people.";
+} else if (hour < 18) {
+    headline.innerText = "Good afternoon 👀";
+    subtext.innerText = "Take a break and explore connections.";
+} else {
+    headline.innerText = "Good evening 🌙";
+    subtext.innerText = "People are more active tonight.";
+}
+
+// Auto counter (simulated live activity)
+const counter = document.getElementById("counter");
+
+let users = Math.floor(Math.random() * 40) + 80;
+
+function updateCounter() {
+    users += Math.floor(Math.random() * 3) - 1;
+    if (users < 60) users = 65;
+    if (users > 140) users = 130;
+
+    counter.innerText = users + " people exploring right now";
+}
+
+updateCounter();
+setInterval(updateCounter, 3000);
+</script>
 
 </body>
 </html>
